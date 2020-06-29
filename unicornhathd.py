@@ -37,7 +37,6 @@ PHAT_VERTICAL = None
 AUTO = None
 PANEL_SHAPE = (16, 16)
 
-
 _rotation = 0
 _brightness = 0.5
 _buffer_width = 16
@@ -60,7 +59,6 @@ COLORS = {
     'maroon': (128, 0, 0),
     'olive': (128, 128, 0),
     'green': (0, 128, 0),
-    'purple': (128, 0, 128),
     'teal': (0, 128, 128),
     'navy': (0, 0, 128),
     'orange': (255, 165, 0),
@@ -68,7 +66,6 @@ COLORS = {
     'purple': (128, 0, 128),
     'indigo': (75, 0, 130)
 }
-
 
 class Display:
     """Represents a single display in a multi-display chain.
@@ -111,11 +108,8 @@ class Display:
         view = source[self.x:self.x + PANEL_SHAPE[0], self.y:self.y + PANEL_SHAPE[1]]
         return numpy.rot90(view, self.rotation + 1)
 
-
 _displays = [Display(False, 0, 0, 0) for _ in range(8)]
-
 is_setup = False
-
 
 def setup():
     """Initialize Unicorn HAT HD."""
@@ -130,12 +124,10 @@ def setup():
 
     is_setup = True
 
-
 def enable_addressing(enabled=True):
     """Enable multi-panel addressing support (for Ubercorn)."""
     global _addressing_enabled
     _addressing_enabled = enabled
-
 
 def setup_buffer(width, height):
     """Set up the internal pixel buffer.
@@ -150,7 +142,6 @@ def setup_buffer(width, height):
     _buffer_height = height
     _buf = numpy.zeros((_buffer_width, _buffer_height, 3), dtype=int)
 
-
 def enable_display(address, enabled=True):
     """Enable a single display in the chain.
 
@@ -159,7 +150,6 @@ def enable_display(address, enabled=True):
 
     """
     _displays[address].enabled = enabled
-
 
 def setup_display(address, x, y, rotation):
     """Configure a single display in the chain.
@@ -172,7 +162,6 @@ def setup_display(address, x, y, rotation):
     _displays[address].update(x, y, rotation)
     enable_display(address)
 
-
 def set_brightness(b):
     """Set the display brightness between 0.0 and 1.0.
 
@@ -182,7 +171,6 @@ def set_brightness(b):
     global _brightness
 
     _brightness = b
-
 
 def set_rotation(r):
     """Set the display rotation in degrees.
@@ -194,16 +182,13 @@ def set_rotation(r):
 
     _rotation = int(round(r / 90.0))
 
-
 def get_rotation():
     """Return the display rotation in degrees."""
     return _rotation * 90
 
-
 def set_layout(pixel_map=None):
     """Do nothing, for library compatibility with Unicorn HAT."""
     pass
-
 
 def set_all(r, g, b):
     """Set all pixels to RGB colour.
@@ -214,7 +199,6 @@ def set_all(r, g, b):
 
     """
     _buf[:] = r, g, b
-
 
 def set_pixel(x, y, r, g=None, b=None):
     """Set a single pixel to RGB colour.
@@ -318,8 +302,7 @@ def draw_line(x0, y0, x1, y1, r, g, b):
 
     safe_set_pixel(x0, y0, r, g, b)
     safe_set_pixel(x1, y1, r, g, b)
-    
-    
+        
 def set_pixel_hsv(x, y, h, s=1.0, v=1.0):
     """Set a single pixel to a colour using HSV.
 
@@ -333,7 +316,6 @@ def set_pixel_hsv(x, y, h, s=1.0, v=1.0):
     r, g, b = [int(n * 255) for n in colorsys.hsv_to_rgb(h, s, v)]
     set_pixel(x, y, r, g, b)
 
-
 def get_pixel(x, y):
     """Get pixel colour in RGB as a tuple.
 
@@ -342,7 +324,6 @@ def get_pixel(x, y):
 
     """
     return tuple(_buf[int(x)][int(y)])
-
 
 def shade_pixels(shader):
     """Set all pixels to a colour determined by a shader function.
@@ -355,16 +336,13 @@ def shade_pixels(shader):
             r, g, b = shader(x, y)
             set_pixel(x, y, r, g, b)
 
-
 def get_pixels():
     """Return entire buffer."""
     return _buf
 
-
 def get_shape():
     """Return the shape (width, height) of the display."""
     return _buffer_width, _buffer_height
-
 
 def clear():
     """Clear the buffer."""
@@ -397,7 +375,6 @@ def show():
         _spi.xfer2([_SOF] + (numpy.rot90(_buf, _rotation).reshape(768) * _brightness).astype(numpy.uint8).tolist())
 
     time.sleep(_DELAY)
-
 
 rotation = set_rotation
 brightness = set_brightness

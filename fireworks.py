@@ -25,16 +25,6 @@ def random_color():
     index = randint(0, len(colors_array)-1)
     return colors_array[index]
 
-def create_fireworks_array(n):
-    fireworks_array = []
-    for i in range(n):
-        x = randint(8) + 3
-        y = randint(7) + 7
-        size = randint(12)
-        (r,g,b) = random_color()
-        fireworks_array.append(fireworks(x, y, size, (r,g,b)))
-    return fireworks_array
-
 def color_shader(color, s):
     shadedcolor = (color[0]*s, color[1]*s, color[2]*s)
     return shadedcolor
