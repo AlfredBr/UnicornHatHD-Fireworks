@@ -9,5 +9,5 @@ https://en.wikipedia.org/wiki/Bresenham%27s_line_algorithm
 draw_circle() adapted from:
 
 
-Fireworks algorithm taken from:
+Fireworks algorithm adapted from:
 https://www.101computing.net/fireworks-display/
