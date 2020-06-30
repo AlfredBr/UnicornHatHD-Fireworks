@@ -316,6 +316,10 @@ def set_pixel_hsv(x, y, h, s=1.0, v=1.0):
     r, g, b = [int(n * 255) for n in colorsys.hsv_to_rgb(h, s, v)]
     set_pixel(x, y, r, g, b)
 
+def safe_set_pixel_hsv(x, y, h, s=1.0, v=1.0):
+    if x >= 0 and y >= 0 and  x < WIDTH and y < HEIGHT:
+        set_pixel_hsv(x, y, h, s, v)    
+
 def get_pixel(x, y):
     """Get pixel colour in RGB as a tuple.
 
