@@ -33,39 +33,12 @@ def draw_circle(x, y, z, color, d):
     sc = color_shader(color, d)
     uhat.draw_circle(x, y, z, sc[0], sc[1], sc[2])
 
-def burst():
-    uhat.clear()
-    uhat.set_rotation(90)
-    t = 16
-
-    randomcolors = []
-    for i in range(t):
-        randomcolors.append(random_color())
-
-    xyz = []
-    for i in range(t):
-        xyz.append((randint(0,8)+4, randint(0,8)+4, randint(0,4)+4, random_color()))
-
-    for loop in range(25):
-        uhat.set_brightness(0.5)
-        random.shuffle(randomcolors)            
-        random.shuffle(xyz)
-
-        for u in range(t):
-            ut = max(0, math.cos(math.radians(1-(u*11))))
-            uhat.set_all(0, 0, 0)
-            for n in range(5):
-                draw_circle(xyz[n][0], xyz[n][1], min(xyz[n][2],u), randomcolors[n], ut)
-            time.sleep(0.05)
-            uhat.show()
-        time.sleep(0.5)
-
 def pointc(x, y, color):
     point(x, y, color[0], color[1], color[2])
 
 def point(x, y, r, g, b):
     center = 7
-    uhat.safe_set_pixel(y+center, x+center, r, g, b);
+    uhat.safe_set_pixel(y+center, x+center, r, g, b)
 
 def point_xy(x, y, r, g, b):
     uhat.safe_set_pixel(y, x, r, g, b)
@@ -99,15 +72,11 @@ def pop(x, y):
     y = y - 7
 
     pointc(x, y, color)
-    uhat.show();
+    uhat.show()
     time.sleep(0.2)
     
-    position=[]
-    velocity=[]
-
-    for i in range(0, numberOfParticles):    
-        position.append([x,y])
-        velocity.append([1,1])
+    position=[[x,y] for _ in range(0, numberOfParticles)]
+    velocity=[[1,1] for _ in range(0, numberOfParticles)]
 
     lives = 0
     while lives <= lifespan:
@@ -121,8 +90,30 @@ def pop(x, y):
         uhat.show()
         lives += 1
 
+def burst():
+    uhat.clear()
+    uhat.set_rotation(90)
+    t = 16
+
+    randomcolors = [random_color() for i in range(t)]
+    xyz = [(randint(0,8)+4, randint(0,8)+4, randint(0,4)+4, random_color()) for i in range(t)]
+
+    for _ in range(25):
+        uhat.set_brightness(0.5)
+        random.shuffle(randomcolors)            
+        random.shuffle(xyz)
+
+        for u in range(t):
+            ut = max(0, math.cos(math.radians(1-(u*11))))
+            uhat.set_all(0, 0, 0)
+            for n in range(5):
+                draw_circle(xyz[n][0], xyz[n][1], min(xyz[n][2],u), randomcolors[n], ut)
+            time.sleep(0.05)
+            uhat.show()
+        time.sleep(0.5)
+
 def ground_show():
-    for x in range(25):
+    for _ in range(25):
         pad = randint(4,11)
         apogee = launch(pad)
         pop(pad, apogee)
