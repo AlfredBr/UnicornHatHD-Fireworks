@@ -226,7 +226,9 @@ def safe_set_pixel(x, y, r, g=None, b=None):
     if x >= 0 and y >= 0 and  x < WIDTH and y < HEIGHT:
         set_pixel(x, y, r, g, b)
 
-def draw_circle(x0, y0, radius, r, g=None, b=None):
+def draw_circle(x, y, radius, r, g=None, b=None):
+    x0 = y
+    y0 = x
     radius = max(0, radius)
     f = 1 - radius
     ddf_x = 1
