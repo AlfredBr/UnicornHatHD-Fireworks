@@ -344,8 +344,8 @@ def shade_pixels(shader):
 
 def swap_pixels(x0, y0, x1, y1):
     p0 = get_pixel(x0, y0)
-    set_pixel(x0, y0, get_pixel(x1, y1))
-    set_pixel(x1, y1, p0)
+    safe_set_pixel(x0, y0, get_pixel(x1, y1))
+    safe_set_pixel(x1, y1, p0)
 
 def get_pixels():
     """Return entire buffer."""
