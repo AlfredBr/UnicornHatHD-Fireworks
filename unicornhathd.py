@@ -226,7 +226,7 @@ def safe_set_pixel(x, y, r, g=None, b=None):
     if x >= 0 and y >= 0 and  x < WIDTH and y < HEIGHT:
         set_pixel(x, y, r, g, b)
 
-def draw_circle(x0, y0, radius, r, g, b):
+def draw_circle(x0, y0, radius, r, g=None, b=None):
     radius = max(0, radius)
     f = 1 - radius
     ddf_x = 1
@@ -255,7 +255,7 @@ def draw_circle(x0, y0, radius, r, g, b):
         safe_set_pixel(x0 + y, y0 - x, r, g, b)
         safe_set_pixel(x0 - y, y0 - x, r, g, b)
         
-def draw_line(x0, y0, x1, y1, r, g, b):
+def draw_line(x0, y0, x1, y1, r, g=None, b=None):
     def _plotLineLow(x0, y0, x1, y1, r, g, b):
         dx = x1 - x0
         dy = y1 - y0
