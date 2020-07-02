@@ -3,7 +3,7 @@
 
 """Unicorn HAT HD library.
 
-Drive the 16x16 RGB pixel Pimoronu Unicorn HAT HD
+Drive the 16x16 RGB pixel Pimoroni Unicorn HAT HD
 over SPI from a Raspberry Pi or compatible platform.
 
 """
@@ -39,8 +39,8 @@ PANEL_SHAPE = (16, 16)
 
 _rotation = 0
 _brightness = 0.5
-_buffer_width = 16
-_buffer_height = 16
+_buffer_width = WIDTH
+_buffer_height = HEIGHT
 _addressing_enabled = False
 _buf = numpy.zeros((_buffer_width, _buffer_height, 3), dtype=int)
 
@@ -227,6 +227,7 @@ def safe_set_pixel(x, y, r, g=None, b=None):
         set_pixel(x, y, r, g, b)
 
 def draw_circle(x, y, radius, r, g=None, b=None):
+    #swap x and y
     x0 = y
     y0 = x
     radius = max(0, radius)
@@ -304,7 +305,15 @@ def draw_line(x0, y0, x1, y1, r, g=None, b=None):
 
     safe_set_pixel(x0, y0, r, g, b)
     safe_set_pixel(x1, y1, r, g, b)
-        
+
+def draw_rect(x, y, w, h, r, g=None, b=None):
+    x1 = x + h
+    y1 = y + w
+    draw_line(x, y, x1, y, r, g, b)
+    draw_line(x1, y, x1, y1, r, g, b)
+    draw_line(x1, y1, x, y1, r, g, b)
+    draw_line(x, y1, x, y, r, g, b)
+
 def set_pixel_hsv(x, y, h, s=1.0, v=1.0):
     """Set a single pixel to a colour using HSV.
 
@@ -344,7 +353,8 @@ def shade_pixels(shader):
 
 def swap_pixels(x0, y0, x1, y1):
     p0 = get_pixel(x0, y0)
-    safe_set_pixel(x0, y0, get_pixel(x1, y1))
+    p1 = get_pixel(x1, y1)
+    safe_set_pixel(x0, y0, p1)
     safe_set_pixel(x1, y1, p0)
 
 def get_pixels():
