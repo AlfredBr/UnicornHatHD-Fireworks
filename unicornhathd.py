@@ -314,6 +314,11 @@ def draw_rect(x, y, w, h, r, g=None, b=None):
     draw_line(x1, y1, x, y1, r, g, b)
     draw_line(x, y1, x, y, r, g, b)
 
+def fill_rect(x, y, w, h, r, g=None, b=None):
+    x1 = x + h
+    for i in range(w):
+        draw_line(x, y+i, x1, y+i, r, g, b)
+
 def set_pixel_hsv(x, y, h, s=1.0, v=1.0):
     """Set a single pixel to a colour using HSV.
 
