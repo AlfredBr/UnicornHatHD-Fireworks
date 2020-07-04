@@ -359,7 +359,7 @@ def fill_rect(x, y, w, h, r, g=None, b=None):
     :param b: Amount of blue from 0 to 255
     """
     x1 = x + h
-    for i in range(w):
+    for i in range(abs(w+1)):
         draw_line(x, y+i, x1, y+i, r, g, b)
 
 def set_pixel_hsv(x, y, h, s=1.0, v=1.0):
