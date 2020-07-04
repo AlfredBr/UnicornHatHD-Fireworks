@@ -190,7 +190,7 @@ def set_layout(pixel_map=None):
     """Do nothing, for library compatibility with Unicorn HAT."""
     pass
 
-def set_all(r, g, b):
+def set_all(r, g=None, b=None):
     """Set all pixels to RGB colour.
 
     :param r: Amount of red from 0 to 255
@@ -198,6 +198,17 @@ def set_all(r, g, b):
     :param b: Amount of blue from 0 to 255
 
     """
+
+    if type(r) is tuple:
+        r, g, b = r
+
+    elif type(r) is str:
+        try:
+            r, g, b = COLORS[r.lower()]
+
+        except KeyError:
+            raise ValueError('Invalid color!')
+
     _buf[:] = r, g, b
 
 def set_pixel(x, y, r, g=None, b=None):
