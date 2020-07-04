@@ -270,6 +270,16 @@ def draw_circle(x, y, radius, r, g=None, b=None):
         safe_set_pixel(x0 - y, y0 - x, r, g, b)
         
 def draw_line(x0, y0, x1, y1, r, g=None, b=None):
+    """Draw a line from position x0, y0 to position x1, y1
+
+    :param x0: Horizontal starting position from 0 to 15
+    :param y0: Vertical starting position from 0 to 15
+    :param x1: Horizontal ending position from 0 to 15
+    :param y1: vertical ending position from 0 to 15
+    :param r: Amount of red from 0 to 255
+    :param g: Amount of green from 0 to 255
+    :param b: Amount of blue from 0 to 255
+    """
     def _plotLineLow(x0, y0, x1, y1, r, g, b):
         dx = x1 - x0
         dy = y1 - y0
@@ -318,6 +328,17 @@ def draw_line(x0, y0, x1, y1, r, g=None, b=None):
     safe_set_pixel(x1, y1, r, g, b)
 
 def draw_rect(x, y, w, h, r, g=None, b=None):
+    """Draw an unfilled rectangle from position x, y 
+    with width w and height h
+
+    :param x: Horizontal position from 0 to 15
+    :param y: Veritcal position from 0 to 15
+    :param w: Width of rectangle
+    :param h: Height of rectangle
+    :param r: Amount of red from 0 to 255
+    :param g: Amount of green from 0 to 255
+    :param b: Amount of blue from 0 to 255
+    """
     x1 = x + h
     y1 = y + w
     draw_line(x, y, x1, y, r, g, b)
@@ -326,6 +347,17 @@ def draw_rect(x, y, w, h, r, g=None, b=None):
     draw_line(x, y1, x, y, r, g, b)
 
 def fill_rect(x, y, w, h, r, g=None, b=None):
+    """Draw a filled rectangle from position x, y 
+    with width w and height h
+
+    :param x: Horizontal position from 0 to 15
+    :param y: Veritcal position from 0 to 15
+    :param w: Width of filled rectangle
+    :param h: Height of filled rectangle
+    :param r: Amount of red from 0 to 255
+    :param g: Amount of green from 0 to 255
+    :param b: Amount of blue from 0 to 255
+    """
     x1 = x + h
     for i in range(w):
         draw_line(x, y+i, x1, y+i, r, g, b)
@@ -344,6 +376,10 @@ def set_pixel_hsv(x, y, h, s=1.0, v=1.0):
     set_pixel(x, y, r, g, b)
 
 def safe_set_pixel_hsv(x, y, h, s=1.0, v=1.0):
+    """Set a single pixel to a colour using HSV
+    (This version will not cause an error if x or y
+    is out of range.)
+    """
     if x >= 0 and y >= 0 and  x < WIDTH and y < HEIGHT:
         set_pixel_hsv(x, y, h, s, v)    
 
@@ -368,6 +404,8 @@ def shade_pixels(shader):
             set_pixel(x, y, r, g, b)
 
 def swap_pixels(x0, y0, x1, y1):
+    """Swap the r, g, b values of pixels at positions x0,y0 and x1,y1    
+    """
     p0 = get_pixel(x0, y0)
     p1 = get_pixel(x1, y1)
     safe_set_pixel(x0, y0, p1)
