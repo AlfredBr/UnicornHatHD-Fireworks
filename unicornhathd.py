@@ -414,6 +414,18 @@ def swap_pixels(x0, y0, x1, y1):
 def get_pixels():
     """Return entire buffer."""
     return _buf
+   
+def set_pixels(buf):
+    """Set entire buffer"""
+    _buf = buf
+    
+def hscroll(dx):
+    """Scroll entire buffer horizontally"""
+    _buf[0:] = numpy.roll(_buf[0:], dx, axis=1)
+    
+def vscroll(dy):
+    """Scroll entire buffer vertically"""
+    _buf[0:] = numpy.roll(_buf[0:], dy, axis=0)
 
 def get_shape():
     """Return the shape (width, height) of the display."""
