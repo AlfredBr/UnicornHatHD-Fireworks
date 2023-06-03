@@ -15,3 +15,5 @@ https://www.geeksforgeeks.org/bresenhams-circle-drawing-algorithm/
 
 Fireworks algorithm adapted from:
 https://www.101computing.net/fireworks-display/
+
+![Made with Python](https://forthebadge.com/images/badges/made-with-python.svg)
