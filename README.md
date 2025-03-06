@@ -1,11 +1,12 @@
 # UnicornHatHD-Fireworks
 A simple demo of fireworks on the UnicornHatHD.
+![pi-fireworks](./pi-fireworks.jpg)
 
 I included my own version of unicornhathd.py that adds safe_set_pixel(), draw_line() and draw_circle().
 
 * safe_set_pixel() is forgiving if x or y are out of range for the UnicornHatHD
 
-* draw_line() algorithm adaped from:
+* draw_line() algorithm adapted from:
 https://en.wikipedia.org/wiki/Bresenham%27s_line_algorithm
 
 * draw_circle() algorithm adapted from:
